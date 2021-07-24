@@ -48,8 +48,9 @@ jobs:
       - uses: julia-actions/setup-julia@v1
         with:
           version: '1'
-      - run: |
-          julia --project=docs -e 'import Pkg; Pkg.instantiate()'
+      - run: julia --project=docs -e 'versioninfo()'
+      - run: julia --project=docs -e 'b=IOBuffer(); versioninfo(b); println(String(take!(io)))'
+      - run: julia --project=docs -e 'import Pkg; Pkg.instantiate()'
       - run: julia --project=docs --color=yes docs/make.jl
         env:
           JULIA_DEBUG: Documenter
